@@ -11,7 +11,7 @@ str string    （不能用大写的String）
 
 
 check 检查
-完成：complete do done
+完成：complete do
 
 
 num number len length  value

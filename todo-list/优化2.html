@@ -65,27 +65,25 @@
     <ul class="todo-list"></ul>
 </div>
 <script>
-    var list = []
+    var list = [{
+        name: '吃饭',
+        completed: false,
+    }, {
+        name: '喝水',
+        completed: true,
+    }, {
+        name: '写作业',
+        completed: true,
+    }]
     init()
 
-    function init(){
-        list = [{
-            name: '吃饭',
-            completed: false,
-        }, {
-            name: '喝水',
-            completed: true,
-        }, {
-            name: '写作业',
-            completed: true,
-        }]
-
+    function init() {
         render(list)
         bind()
     }
 
 
-    function bind(){
+    function bind() {
         document.querySelector('.input-todo').addEventListener('keyup', function (e) {
             // console.log(e)
             // trim 去首尾空格
@@ -116,8 +114,6 @@
     }
 
 
-
-
     function filterCompletedStatus(e) {
         console.log('点击了按钮')
         // html 自定义属性 data-*   data-type="哈哈哈"   el.dataset.type
@@ -130,9 +126,6 @@
         var newList = list.filter((item) => item.completed === Boolean(Number(completed)))
         render(newList)
     }
-
-
-
 
 
     function deleteItem(index) {
