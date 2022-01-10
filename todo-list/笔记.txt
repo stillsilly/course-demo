@@ -1,0 +1,36 @@
+1，虽然js是动态类型的语言，可以改变量的类型，但是不推荐这样做。
+一个变量，最好始终保持同一种类型。
+
+2，
+函数：做什么，函数名用动词。
+数值：是什么，一般用名词，布尔值 形容词
+completed 已完成的  true/false
+active  活跃的
+html
+str string    （不能用大写的String）
+
+
+check 检查
+完成：complete do done
+
+
+num number len length  value
+
+i j k：数字。 for循环里用来表示当前迭代到第几个的数字
+
+index 数字
+
+list.forEach((item, index)=>{
+
+})
+
+todoList.forEach(todo=>{
+
+})
+
+articleList.forEach(article=>{
+
+})
+
+
+

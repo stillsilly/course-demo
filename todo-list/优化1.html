@@ -1,0 +1,176 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        .main-wrapper {
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+
+        .btn-group {
+            display: inline-block;
+        }
+
+        .icon-complete {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+        }
+
+        .icon-complete-active {
+            border-color: green;
+            text-align: center;
+        }
+
+        /*如果用图片的话，可以用background-image*/
+        .icon-complete-active:after {
+            content: '√';
+            color: green;
+        }
+
+        .todo-item {
+            margin-bottom: 10px;
+        }
+
+        .todo-text {
+            font-size: 18px;
+        }
+
+        .item-complete .todo-text {
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .filter-btn-group {
+            display: inline-block;
+            margin-left: 60px;
+        }
+    </style>
+</head>
+<body>
+<div class="main-wrapper">
+    <input class="input-todo" type="text" placeholder="你想做点什么呢？">
+    <div>
+        <span>还有 <span class="active-num"></span> 个未完成</span>
+        <div class="filter-btn-group">
+            筛选：
+            <button class="filter-btn filter-btn-all" data-completed="all">全部</button>
+            <button class="filter-btn filter-btn-active" data-completed="0">未完成</button>
+            <button class="filter-btn filter-btn-completed" data-completed="1">已完成</button>
+        </div>
+        <button class="btn-clean">清空</button>
+    </div>
+    <ul class="todo-list"></ul>
+</div>
+<script>
+
+    var list = [{
+        name: '吃饭',
+        completed: false,
+    }, {
+        name: '喝水',
+        completed: true,
+    }, {
+        name: '写作业',
+        completed: true,
+    }]
+
+    render(list)
+
+
+    document.querySelector('.input-todo').addEventListener('keyup', function (e) {
+        // console.log(e)
+        // trim 去首尾空格
+        var name = e.target.value || ''
+        if (!name || !name.trim()) {
+            return
+        }
+        if (e.key === 'Enter') {
+            console.log('按下了回车键')
+            var item = {
+                name: name,
+                completed: false,
+            }
+            list.push(item)
+            render(list)
+            e.target.value = ''
+        }
+    })
+
+    document.querySelectorAll('.filter-btn').forEach((el) => {
+        el.addEventListener('click', filterCompletedStatus)
+    })
+
+    function filterCompletedStatus(e) {
+        console.log('点击了按钮')
+        // html 自定义属性 data-*   data-type="哈哈哈"   el.dataset.type
+        console.log(e.target.dataset)
+        var completed = e.target.dataset.completed
+        if (completed === 'all') {
+            return renderTodoList(list)
+        }
+
+        var newList = list.filter((item) => item.completed === Boolean(Number(completed)))
+        render(newList)
+    }
+
+
+    document.querySelector('.btn-clean').addEventListener('click', () => {
+        list = []
+        render(list)
+    })
+
+
+    function deleteItem(index) {
+        // console.log(`点击了第${index}个删除按钮`)
+        list.splice(index, 1);  // splice修改原数组，返回值是被删除的值
+        render(list);
+    }
+
+
+    function onClickCompleteBtn(index) {
+        // console.log(`点击了第${index}个完成按钮`)
+        // console.log('item:', list[index])
+        list[index].completed = !list[index].completed
+        render(list)
+    }
+
+
+    function render(list) {
+        updateActiveNum()
+        renderTodoList(list)
+    }
+
+    function updateActiveNum() {
+        // 1，计算出还有几个未完成
+        // 2，改.active-num的innerHTML
+        var num = list.filter(item => !item.completed).length
+        document.querySelector('.active-num').innerHTML = num
+    }
+
+    function renderTodoList(list) {
+        var html = ''
+        list.forEach((item, index) => {
+            var itemClass = item.completed ? 'todo-item item-complete' : 'todo-item'
+            var spanClass = item.completed ? 'icon-complete icon-complete-active' : 'icon-complete'
+            html = html + `<li class="${itemClass}">
+            <span onclick="onClickCompleteBtn(${index})" class="${spanClass}"></span>
+            <span>${item.name}</span>
+            <div class="btn-group">
+                <button onclick="" class="btn-complete">完成</button>
+                <button onclick="deleteItem(${index})" class="btn-delete">删除</button>
+            </div>
+        </li>`
+        })
+
+        document.querySelector('.todo-list').innerHTML = html
+
+    }
+</script>
+</body>
+</html>
+
+
+

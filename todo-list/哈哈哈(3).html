@@ -1,0 +1,242 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        .main-wrapper{
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+        .btn-group{
+            display: inline-block;
+        }
+
+        .icon-complete{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #ddd;
+            border-radius: 50%; 
+        }
+        .icon-complete-active{
+            border-color: green;
+            text-align: center;
+        }
+        /*如果用图片的话，可以用background-image*/
+        .icon-complete-active:after{
+            content: '√';
+            color: green;
+        }
+        .todo-item{
+            margin-bottom: 10px;
+        }
+        .todo-text{
+            font-size: 18px;
+        }
+        .item-complete .todo-text{
+            color: #999;
+            text-decoration: line-through;
+        }
+
+         .filter-btn-group{
+             display: inline-block;
+             margin-left: 60px;
+         }
+    </style>
+</head>
+<body>
+<div class="main-wrapper">
+    <input class="input-todo" type="text" placeholder="你想做点什么呢？" >
+    <div>
+        <span>还有 <span class="active-num">1</span> 个未完成</span>
+        <div class="filter-btn-group">
+            筛选：
+            <button  class="filter-btn filter-btn-all" data-completed="all">全部</button>
+            <button class="filter-btn filter-btn-active" data-completed="0">未完成</button>
+            <button class="filter-btn filter-btn-completed" data-completed="1">已完成</button>
+        </div>
+        <button class="btn-clean">清空</button>
+    </div>
+    <ul class="todo-list">
+      <li class="todo-item">
+        <span class="icon-complete" onclick="onClickCompleteBtn(0)"></span>
+          <span class="todo-text">吃饭</span>
+          <div class="btn-group">
+                <button class="btn-complete">完成</button>
+                <button onclick="deleteItem(0)" class="btn-delete">删除</button>
+          </div>
+      </li>
+        <li class="todo-item item-complete">
+             <span class="icon-complete icon-complete-active" onclick="onClickCompleteBtn(1)"></span>
+            <span class="todo-text">喝水</span>
+            <div class="btn-group">
+                <button onclick="" class="btn-complete">完成</button>
+                <button onclick="deleteItem(1)" class="btn-delete">删除</button>
+            </div>
+        </li>
+        <li class="todo-item item-complete">
+             <span class="icon-complete icon-complete-active" onclick="onClickCompleteBtn(2)"></span>
+            <span class="todo-text">写作业</span>
+            <div class="btn-group">
+                <button class="btn-complete">完成</button>
+                <button onclick="deleteItem(2)" class="btn-delete">删除</button>
+            </div>
+        </li>
+    </ul>
+</div>
+<script>
+
+ var list  = [{
+     name:'吃饭',
+     completed: 0,
+ }, {
+     name:'喝水',
+     completed: 1,
+ }, {
+     name:'写作业',
+     completed: 1,
+ }]
+
+ // renderTodoList(list)
+
+
+ document.querySelector('.input-todo').addEventListener('keyup', function (e){
+     console.log(e)
+     // trim 去首尾空格
+     if(!e.target.value || !(e.target.value || '').trim()){
+         return
+     }
+     if(e.key === 'Enter'){
+         console.log('按下了回车键')
+         var name = e.target.value;
+         var item =  {
+             name: name,
+             completed: 0,
+         }
+         list.push(item)
+         render(list)
+         e.target.value = ''
+     }
+ })
+
+
+ // document.querySelector('.filter-btn-active').addEventListener('click', filterCompletedStatus)
+ // document.querySelector('.filter-btn-completed').addEventListener('click', filterCompletedStatus)
+
+
+ document.querySelectorAll('.filter-btn').forEach((el)=>{
+     el.addEventListener('click', filterCompletedStatus)
+ })
+
+ function filterCompletedStatus(e){
+     // 两种思路
+     // 思路1，操作dom 把没有.item-active的li移除掉
+     // 思路2，newList =  list.filter，然后重新renderTodolist
+
+     console.log('点击了 未完成 按钮，要把所有的已完成的li隐藏')
+     // html 自定义属性 data-*   data-type="哈哈哈"   el.dataset.type
+     var completed = e.target.dataset.completed
+     if(completed==='all'){
+        return renderTodoList(list)
+     }
+     console.log(e.target.dataset)
+     var newList = list.filter((item) => item.completed === Number(completed))
+     render(newList)
+ }
+
+
+ document.querySelector('.btn-clean').addEventListener('click',()=>{
+     list = []
+     render(list)
+ })
+
+
+ function deleteItem(index) {
+    console.log(`点击了第${index}个删除按钮`)
+    list.splice(index, 1);  // splice修改原数组，返回值是被删除的值
+     render(list);
+ }
+ function onClickCompleteBtn(index){
+     // e.target
+     // console.log('this:', this)
+    var span = document.querySelectorAll('.icon-complete')[index]
+     var item = document.querySelectorAll('.todo-item')[index]
+
+     // 在这里加代码
+     // 这段代码可以正常运行
+     // var className = span.className
+     // if(span.className.includes('icon-complete-active')){
+     //     span.className = 'icon-complete';
+     // }else {
+     //     span.className = 'icon-complete icon-complete-active';
+     // }
+
+     // 这样写，用classList也ok
+     // span.classList.toggle('icon-complete-active')
+     // item.classList.toggle('item-complete')
+
+     // 1，计算出还有几个未完成
+     // 2，改.active-num的innerHTML
+
+
+     list[index].completed = !list[index].completed
+
+
+
+
+     console.log('item:', list[index])
+
+
+     console.log('span:', span)
+     console.log(`点击了第${index}个完成按钮`)
+     render(list)
+
+ }
+
+
+ function render(list){
+     updateActiveNum()
+     renderTodoList(list)
+ }
+
+ function  updateActiveNum(){
+     var num = list.filter(item => !item.completed).length
+     document.querySelector('.active-num').innerHTML = num
+ }
+
+ function renderTodoList(list){
+     // var html = list.map((item,index)=>{
+     //     return  `<li>
+     //        <span>${item.name}</span>
+     //        <div class="btn-group">
+     //            <button onclick="" class="btn-complete">完成</button>
+     //            <button onclick="deleteItem(${index})" class="btn-delete">删除</button>
+     //        </div>
+     //    </li>`
+     // }).join('')
+     var  html = ''
+     list.forEach((item, index)=>{
+         var itemClass = item.completed?'todo-item item-complete':'todo-item'
+         var spanClass = item.completed?'icon-complete icon-complete-active':'icon-complete'
+        html = html + `<li class="${itemClass}">
+            <span onclick="onClickCompleteBtn(${index})" class="${spanClass}"></span>
+            <span>${item.name}</span>
+            <div class="btn-group">
+                <button onclick="" class="btn-complete">完成</button>
+                <button onclick="deleteItem(${index})" class="btn-delete">删除</button>
+            </div>
+        </li>`
+     })
+     // console.log(html)
+     document.querySelector('.todo-list').innerHTML = html
+
+ }
+
+
+
+ //
+</script>
+</body>
+</html>
+
+
+
