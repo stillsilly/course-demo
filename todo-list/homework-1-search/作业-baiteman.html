@@ -70,8 +70,8 @@
       <button class="btn-clean">清空</button>
     </div>
     <div class="row-search">
-      <input class="keywords" type="text" placeholder="请输入要搜索的词">
-      <button onClick="searchBykeyword()">搜索</button>
+      <input onkeydown="handleKeydown()" class="keywords" type="text" placeholder="请输入要搜索的词">
+      <button onClick="searchBykeyword()" >搜索</button>
     </div>
     <ul class="todo-list"></ul>
   </div>
@@ -187,6 +187,11 @@
         render(filterList)
       } else {
         render(list)
+      }
+    }
+    function handleKeydown() {
+      if(event.key === 'Enter') {
+        searchBykeyword()
       }
     }
   </script>
