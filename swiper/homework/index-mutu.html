@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html {
+            padding: 0;
+            margin: 0;
+            font-size: 16px;
+        }
+        
+        .list-wrapper {
+            width: 500px;
+            border: 1px solid #000;
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+
+        .list-title .title{
+            display: inline-block;
+            margin: 0;
+        }
+        
+        #head span {
+            margin-left: 280px;
+        }
+
+        .news-list{
+            list-style: none;
+            padding-left: 0;
+        }
+        .num{
+            color: #9195A3;
+          }
+        .num-1{
+            color: #FE2D46;
+        }
+
+        .num-2{
+            color: #F60;
+        }
+
+        .num-3{
+            color: #F60;
+        }
+        
+        a {
+            font-size: 1.15rem;
+            color: blue;
+            text-decoration: none;
+        }
+        
+        a:visited {
+            font-size: 1.15rem;
+            color: blue;
+        }
+        
+        .hot::after {
+            content: "热";
+            color: white;
+            background-color: tomato;
+            border-radius: 0.3rem;
+        }
+        
+        .new::after {
+            content: "新";
+            color: white;
+            background-color: rgba(238, 47, 136, 0.897);
+            border-radius: 0.3rem;
+        }
+        
+        li {
+            padding-left: 0px;
+        }
+        
+        .hotNum {
+            font-size: 14px;
+            /*margin-left: 200px;*/
+            color: grey
+        }
+
+        .btn-change, .hotNum{
+            /*float: right;*/
+        }
+    </style>
+</head>
+
+<body>
+    <div class="list-wrapper">
+        <div class="list-title">
+            <h4 class="title">百度热搜</h4>
+            <span class="btn-change">换一换</span>
+        </div>
+        <div>
+            <ol class="news-list">
+                <li>
+                    <span class="num num-1">1</span>
+                    <a class="hot" href="">某某热门故事</a>
+                    <span class="hotNum">452万</span>
+                </li>
+                <li>
+                    <span class="num num-2">2</span>
+                    <a class="hot" href="">某某热门故事</a>
+                    <span class="hotNum">452万</span>
+                </li>
+                <li>
+                    <span class="num num-3">3</span>
+                    <a class="hot" href="">某某热门故事</a>
+                    <span class="hotNum">452万</span>
+                </li>
+                <li>
+                    <span class="num">4</span>
+                    <a class="new" href="">某某热门故事</a>
+                    <span class="hotNum">452万</span>
+                </li>
+                <li>
+                    <span class="num">5</span>
+                    <a class="new" href="">某某热门故事</a>
+                    <span class="hotNum">452万</span>
+                </li>
+            </ol>
+        </div>
+
+    </div>
+</body>
+
+</html>

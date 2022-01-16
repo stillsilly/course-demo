@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box {
+            display: inline-block;
+            width: 100px;
+            height: 80px;
+            border: 1px solid #000;
+            position: relative;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: red;
+            position: absolute;
+        }
+
+        /* 下面是作业的答案*/
+        .dot-2 {
+            right: 0;
+        }
+
+        .dot-3 {
+            bottom: 0;
+        }
+
+        .dot-4 {
+            right: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<div>练习布局：让4个点点的位置移动到正方形的四个角落</div>
+<div>用position absolute 移动点点的位置</div>
+<div>position absolute：相对于离它最近的定位祖先元素（position不是static的元素，（一般是：relative、absolute、fixed））</div>
+外层 relative 中间可以有其他标签 里层 absolute
+<div class="box box-1">
+    <div>
+        <span class="dot dot-1"></span>
+        <span class="dot dot-2"></span>
+    </div>
+    <div>
+        <span class="dot dot-3"></span>
+        <span class="dot dot-4"></span>
+    </div>
+</div>
+</body>
+</html>

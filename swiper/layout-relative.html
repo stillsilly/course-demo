@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box {
+            display: inline-block;
+            width: 100px;
+            height: 80px;
+            border: 1px solid #000;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: red;
+        }
+
+
+        /* 用dot-1举个例子*/
+        .dot-1 {
+            position: relative;
+            top: 10px;
+            left: 10px;
+        }
+
+        /* 下面是作业的答案 */
+        .dot {
+            position: relative;
+        }
+
+        .dot-1 {
+            top: 0;
+            left: 0;
+        }
+
+        .dot-2 {
+            left: 55px;
+        }
+
+        .dot-3 {
+            left: -49px;
+            top: 60px;
+        }
+
+        .dot-4 {
+            left: 7px;
+            top: 60px;
+        }
+    </style>
+</head>
+<body>
+<div>练习布局：让4个点点的位置移动到正方形的四个角落</div>
+<div>用position relative 移动点点的位置</div>
+<div class="box box-1">
+    <span class="dot dot-1"></span>
+    <span class="dot dot-2"></span>
+    <span class="dot dot-3"></span>
+    <span class="dot dot-4"></span>
+</div>
+</body>
+</html>

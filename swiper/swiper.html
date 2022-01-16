@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>swiper</title>
+    <style>
+        .swiper-wrapper {
+            margin-top: 100px;
+            margin-left: 100px;
+            border: 1px solid #000;
+            width: 300px;
+            height: 150px;
+            position: relative;
+        }
+
+        #box {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-item {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-item-1 {
+            background: pink;
+        }
+
+        .swiper-item-2 {
+            background: gray;
+        }
+
+        .swiper-item-3 {
+            background: burlywood;
+        }
+
+        .swiper-item-4 {
+            background: blue;
+        }
+
+        .swiper-item-current {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .btn {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin-top: auto;
+            margin-bottom: auto;
+            width: 25px;
+            height: 25px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 13px;
+            text-align: center;
+        }
+
+        .btn-right {
+            right: 0;
+        }
+
+        .dot-list {
+            background-color: thistle;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            /*width: 100px;*/
+            /*text-align: center;*/
+            /*margin-left: auto;*/
+            /*margin-right: auto;*/
+            /*left: 0;*/
+            /*right: 0;*/
+            /*height: 50px;*/
+            /*margin-top: auto;*/
+            /*margin-bottom: auto;*/
+            /*top: 0;*/
+            /*bottom: 0;*/
+        }
+    </style>
+</head>
+
+<body>
+<div class="swiper-wrapper">
+    <div id="box">
+        <div data-index="0" class="swiper-item swiper-item-1 swiper-item-current">1</div>
+        <div data-index="1" class="swiper-item swiper-item-2 ">2</div>
+        <div data-index="2" class="swiper-item swiper-item-3">3</div>
+        <div data-index="3" class="swiper-item swiper-item-4">4</div>
+    </div>
+    <div class="btn btn-left">&lt;</div>
+    <div class="btn btn-right">&gt;</div>
+    <div class="dot-list">
+        <span data-index="0" class="dot">1</span>
+        <span data-index="1" class="dot">2</span>
+        <span data-index="2" class="dot">3</span>
+        <span data-index="3" class="dot">4</span>
+    </div>
+</div>
+<script>
+    // document.querySelector('.btn') // 获取匹配到的第一个元素
+    // el.style.color 读样式
+    // el.style.color = 'red' 改样式
+
+    //document.querySelectorAll('.btn')  获取元素列表
+
+    //document.querySelector('.dot').classList.add('hahaha')
+    //document.querySelector('.dot').classList.remove('hahaha')
+    //document.querySelector('.dot').classList.toggle('hahaha')
+
+
+    // 点击事件
+    // 方法1：
+
+    // var el = document.querySelector('.btn')
+    // el.onclick = function(){
+    //    console.log(1111)
+    // }
+    // el.addEventListener('click', function (){
+    //   console.log('点击了一个btn')
+    // })
+    var currentIndex = 0
+    var elBtnRight = document.querySelector('.btn-right')
+    var elBtnLeft = document.querySelector('.btn-left')
+    var len = document.querySelectorAll('.swiper-item').length
+    elBtnRight.addEventListener('click', function () {
+        var to = currentIndex + 1;
+        if (to >= len) {
+            to = 0
+        }
+        handleCurrentIndexChange(to)
+    })
+    elBtnLeft.addEventListener('click', function () {
+        var to = currentIndex - 1;
+        if (to < 0) {
+            to = len - 1
+        }
+        handleCurrentIndexChange(to)
+    })
+
+    var elListDot = document.querySelector('.dot-list')
+    elListDot.addEventListener('click', function (e) {
+        if (e.target.classList.contains('dot')) {
+            var index = e.target.dataset.index
+            console.log('现在点击的是第' + index + '个点点')
+            handleCurrentIndexChange(index)
+        }
+    })
+
+    function handleCurrentIndexChange(to) {
+        console.log('现在显示的是第', currentIndex, '个')
+        console.log('把第', to, '显示出来，其他都隐藏')
+        document.querySelectorAll('.swiper-item')[currentIndex].classList.remove('swiper-item-current')
+        document.querySelectorAll('.swiper-item')[to].classList.add('swiper-item-current')
+        currentIndex = to
+    }
+
+    function _handleCurrentIndexChange(to) {
+        console.log('现在显示的是第', currentIndex, '个')
+        console.log('把第', to, '显示出来，其他都隐藏')
+        document.querySelectorAll('.swiper-item')[currentIndex].style.display = "none"
+        document.querySelectorAll('.swiper-item')[to].style.display = "block"
+        currentIndex = to
+    }
+</script>
+</body>
+
+</html>

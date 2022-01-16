@@ -1,0 +1,60 @@
+html  内容
+css  外观
+js   行为：比如点击动作
+
+
+1， html
+<标签>内容</标签>
+<标签 属性名="属性值">内容</标签>
+
+
+<div title="嘿，我是一个div">内容内容内容内容</div>
+
+
+h1
+h2
+p
+div
+span
+
+语义：
+header：头部
+nav 导航
+main 主要的部分
+aside  侧边栏
+article 文章
+footer 底部页脚
+
+表单：
+input 输入框
+button 按钮
+
+自闭合标签
+img
+input 
+hr 
+br
+
+
+2，css
+属性：
+1，布局 layout （块级竖着排，行级横着排。普通流，浮动，绝对定位（absolut,fix））
+2，尺寸 （盒模型，宽高，margin border padding。）
+3，外观（背景色background，文字颜色color）
+4，字体相关（font-size,font-family,line-height,font-weight,）
+
+
+3，js（js核心（ecmascript、bom、dom））
+1，变量、数据类型（数字、字符串、布尔值、  对象、undifiend、null）
+2，函数
+3，bom  dom
+
+轮播图可以加的功能：
+对外提供：数据currentIndex，prev、next、go接口
+自动播放
+
+
+currentIndex
+
+
+
