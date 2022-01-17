@@ -1,8 +1,9 @@
 function Swiper(option) {
-
+    
     var module = function () {
         this.init()
         this.bind()
+        option.autoplay && this.autoplay(option.interval)
     }
 
     module.prototype = {
@@ -50,6 +51,14 @@ function Swiper(option) {
             }
             this.handleCurrentIndexChange(to)
         },
+
+        autoplay: function (){
+            var _this = this
+            var timer = setInterval(function () {
+                _this.next();
+            },option.interval);
+        },
+
         handleCurrentIndexChange: function (to) {
             console.log('现在显示的是第', this.currentIndex, '个')
             console.log('把第', to, '显示出来，其他都隐藏')
