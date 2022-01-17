@@ -40,8 +40,14 @@ function Swiper(option) {
         },
         next() {
             var to = this.currentIndex + 1
-            if (to >= this.len) {
-                to = 0
+            if (option.loop) {
+                if(to >= this.len) {
+                    var to = 0
+                }
+            }else{
+                if(to >= this.len) {
+                    var to = to - 1
+                }
             }
             this.handleCurrentIndexChange(to)
         },
