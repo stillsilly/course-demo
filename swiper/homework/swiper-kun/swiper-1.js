@@ -33,8 +33,14 @@ function Swiper(option) {
         },
         prev() {
             var to = this.currentIndex - 1;
-            if (to < 0) {
-                to = this.len - 1
+            if (option.loop) {
+                if (to < 0) {
+                    to = this.len - 1
+                }
+            }else {
+                if (to < 0) {
+                    to = to + 1
+                }
             }
             this.handleCurrentIndexChange(to)
         },
