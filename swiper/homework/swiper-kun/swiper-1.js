@@ -4,7 +4,6 @@ function Swiper(option) {
         this.init()
         this.bind()
         option.autoplay && this.autoplay(option.interval)
-        this.pause()
     }
 
     module.prototype = {
@@ -30,6 +29,14 @@ function Swiper(option) {
                     console.log('现在点击的是第' + index + '个点点')
                     that.handleCurrentIndexChange(index)
                 }
+            })
+            this.elWrapper.addEventListener('mouseenter', function() {
+                clearInterval(that.timer)
+            })
+            this.elWrapper.addEventListener('mouseleave', function() {
+                that.timer = setInterval(function () {
+                    that.next();
+                },option.interval);
             })
         },
         prev() {
@@ -73,22 +80,9 @@ function Swiper(option) {
 
         autoplay: function (){
             var _this = this
-            this.elWrapper.addEventListener('mouseenter', function() {
-                clearInterval(timer)
-            })
-            this.elWrapper.addEventListener('mouseleave', function() {
-                var timer = setInterval(function () {
-                    _this.next();
-                },option.interval);
-            })
-            var timer = setInterval(function () {
+            this.timer = setInterval(function () {
                 _this.next();
             },option.interval);
-        },
-
-        pause: function () {
-            // TODO：想把暂停写在这里，但是取不到autoplay中的timer
-            var _this = this
         },
 
         handleCurrentIndexChange: function (to) {
