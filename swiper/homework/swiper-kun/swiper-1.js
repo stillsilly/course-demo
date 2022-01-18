@@ -4,6 +4,7 @@ function Swiper(option) {
         this.init()
         this.bind()
         option.autoplay && this.autoplay(option.interval)
+        this.pause()
     }
 
     module.prototype = {
@@ -34,11 +35,9 @@ function Swiper(option) {
         prev() {
             var to = this.currentIndex - 1;
             if (option.loop) {
-                if (to < 0) {
+                if(this.isBoundary(to) === 'left') {
                     to = this.len - 1
-                }
-            }else {
-                if (to < 0) {
+                }else {
                     to = to + 1
                 }
             }
@@ -46,12 +45,10 @@ function Swiper(option) {
         },
         next() {
             var to = this.currentIndex + 1
-            if (option.loop) {
-                if(to >= this.len) {
+            if(this.isBoundary(to) === 'right') {
+                if (option.loop) {
                     var to = 0
-                }
-            }else{
-                if(to >= this.len) {
+                }else {
                     var to = to - 1
                 }
             }
@@ -64,11 +61,34 @@ function Swiper(option) {
             this.handleCurrentIndexChange(to)
         },
 
+        isBoundary(to) {
+            if(to >= this.len) {
+                return 'right'
+            }
+            if(to <= 0) {
+                return 'left'
+            }
+            return false
+        },
+
         autoplay: function (){
             var _this = this
+            this.elWrapper.addEventListener('mouseenter', function() {
+                clearInterval(timer)
+            })
+            this.elWrapper.addEventListener('mouseleave', function() {
+                var timer = setInterval(function () {
+                    _this.next();
+                },option.interval);
+            })
             var timer = setInterval(function () {
                 _this.next();
             },option.interval);
+        },
+
+        pause: function () {
+            // TODO：想把暂停写在这里，但是取不到autoplay中的timer
+            var _this = this
         },
 
         handleCurrentIndexChange: function (to) {
